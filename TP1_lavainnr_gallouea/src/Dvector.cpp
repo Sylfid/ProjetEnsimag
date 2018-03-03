@@ -64,19 +64,6 @@ Dvector::Dvector(std::string file){
                 b=10*b+(a-48);
                 flag=1;
             }
-            else if(a==32){
-                if(flag=1){
-                    compteur++;
-                    newComposante=composante;
-                    composante = (double*)malloc(compteur*sizeof(double));
-                    for(i=0;i<compteur-1;i++){
-                        composante[i]=newComposante[i];
-                    }
-                    composante[compteur-1]=b;
-                    free(newComposante);
-                    b=0;
-                }
-            }
             else{
                 if(flag==1){
                     compteur++;
