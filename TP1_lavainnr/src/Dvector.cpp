@@ -14,7 +14,7 @@ Dvector::Dvector(){
 Dvector::Dvector(int taille2){
     std::cout << "Constructeur avec un int en argument\n";
     taille=taille2;
-    if(!taille>-1) return ;
+    if(!(taille>-1)) return ;
     if(taille==0){
         composante==NULL;
     }
@@ -30,7 +30,7 @@ Dvector::Dvector(int taille2){
 Dvector::Dvector(int taille2, double initialisation){
     std::cout << "Constructeur avec un int et un double en argument\n";
     taille=taille2;
-    if(!taille>0) return ;
+    if(!(taille>0)) return ;
     composante = (double*) malloc(taille*sizeof(double));
     int i=0;
     for(i=0;i<taille;i++){
@@ -112,7 +112,7 @@ void Dvector::display(std::ostream& str){
     }
 }
 void Dvector::setVector(int i, double newvaleur){
-    if(!i<taille) return ;
+    if(!(i<taille)) return ;
     else{
         composante[i]=newvaleur;
     }
