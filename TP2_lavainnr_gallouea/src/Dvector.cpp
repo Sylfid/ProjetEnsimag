@@ -52,6 +52,7 @@ Dvector::Dvector(std::string file){
     std::cout << "Constructeur avec fichier\n";
     std::ifstream fluxVector(file.c_str());
     if(fluxVector){
+        std::cout << "et ouiiiiii";
         char a;
         composante = NULL;
         int b(0);
@@ -126,9 +127,10 @@ double Dvector::operator[](int i){
             throw std::string("Dépassement de taille pour Dvector");
         }
         else{
-            
+            return composante[i];            
         }
     }catch(std::string const& chaine){
         std::cerr << chaine << std::endl;
+        return 0.0;
     }
 }

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP1_lavainnr_gallouea/src/Dvector.cpp
+/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP2_lavainnr_gallouea/src/Dvector.cpp
 exception
 -
 string
@@ -14,13 +14,13 @@ string
 iostream
 -
 Dvector.h
-/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP1_lavainnr_gallouea/src/Dvector.h
+/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP2_lavainnr_gallouea/src/Dvector.h
 cstdlib
 -
 fstream
 -
 
-/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP1_lavainnr_gallouea/src/Dvector.h
+/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP2_lavainnr_gallouea/src/Dvector.h
 string
 -
 

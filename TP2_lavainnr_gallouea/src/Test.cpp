@@ -16,5 +16,6 @@ int main(){
   std::cout << "display fonctionne\n" ;
   Dvector vect("fichierTest");
   vect.display(cout);
+  cout << "\nLa 3eme composante de v est " << v[2] << endl;
   return 0;
 }
