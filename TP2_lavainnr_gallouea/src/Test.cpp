@@ -17,5 +17,7 @@ int main(){
   Dvector vect("../src/fichierTest");
   vect.display(cout);
   cout << "\nLa 3eme composante de v est " << v(2) << endl;
+  vect = v;
+  vect.display(cout);
   return 0;
 }

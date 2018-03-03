@@ -4,6 +4,7 @@
 #include "Dvector.h"
 #include <cstdlib>
 #include <fstream>
+#include <cstring>
 
 Dvector::Dvector(){
     std::cout << "Constructeur sans argument\n";
@@ -118,6 +119,14 @@ void Dvector::fillRandomly(){
         c=c/100000;
         composante[i]=c;
     }
+}
+
+Dvector& Dvector::operator=(const Dvector &v){
+    taille = v.taille;
+    free(composante);
+    composante = new double[taille];
+    std::memcpy(composante, v.composante, taille*sizeof(double));
+    return *this;
 }
 
 double Dvector::operator()(int i){
