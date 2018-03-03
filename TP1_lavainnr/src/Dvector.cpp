@@ -58,31 +58,37 @@ Dvector::Dvector(std::string file){
         int compteur(0);
         double* newComposante(NULL);
         int i(0);
+        int flag(0);
         while(fluxVector.get(a)){
             if(a>47 && a<58){
                 b=10*b+(a-48);
+                flag=1;
             }
             else if(a==32){
-                compteur++;
-                newComposante=composante;
-                composante = (double*)malloc(compteur*sizeof(double));
-                for(i=0;i<compteur-1;i++){
-                    composante[i]=newComposante[i];
+                if(flag=1){
+                    compteur++;
+                    newComposante=composante;
+                    composante = (double*)malloc(compteur*sizeof(double));
+                    for(i=0;i<compteur-1;i++){
+                        composante[i]=newComposante[i];
+                    }
+                    composante[compteur-1]=b;
+                    free(newComposante);
+                    b=0;
                 }
-                composante[compteur-1]=b;
-                free(newComposante);
-                b=0;
             }
             else{
-                compteur++;
-                newComposante=composante;
-                composante = (double*)malloc(compteur*sizeof(double));
-                for(i=0;i<compteur-1;i++){
-                    composante[i]=newComposante[i];
+                if(flag==1){
+                    compteur++;
+                    newComposante=composante;
+                    composante = (double*)malloc(compteur*sizeof(double));
+                    for(i=0;i<compteur-1;i++){
+                        composante[i]=newComposante[i];
+                    }
+                    composante[compteur-1]=b;
+                    free(newComposante);
+                    b=0;
                 }
-                composante[compteur-1]=b;
-                free(newComposante);
-                b=0;
             }
         }
         taille=compteur;
