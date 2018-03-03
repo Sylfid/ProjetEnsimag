@@ -16,7 +16,7 @@ Dvector::Dvector(int taille2){
     taille=taille2;
     if(!(taille>-1)) return ;
     if(taille==0){
-        composante==NULL;
+        composante=NULL;
     }
     else{
         composante = new double[taille];
@@ -65,7 +65,7 @@ Dvector::Dvector(std::string file){
                 flag=1;
             }
             else if(a==32){
-                if(flag=1){
+                if(flag==1){
                     compteur++;
                     newComposante=composante;
                     composante = (double*)malloc(compteur*sizeof(double));
