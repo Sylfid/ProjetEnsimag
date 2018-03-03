@@ -133,4 +133,15 @@ void Dvector::fillRandomly(){
     }
 }
 
-
+double Dvector::operator[](int i){
+    try{
+        if(i<0 || i>taille-1){
+            throw std::string("Dépassement de taille pour Dvector");
+        }
+        else{
+            
+        }
+    }catch(std::string const& chaine){
+        std::cerr << chaine << std::endl;
+    }
+}

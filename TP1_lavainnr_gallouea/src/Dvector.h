@@ -17,5 +17,6 @@ class Dvector{
         void addValeur(double newValeur);
         void fillRandomly();
         int size();
+        double operator[](int i);
 };
 
