@@ -133,3 +133,14 @@ double Dvector::operator()(int i){
         return 0.0;
     }
 }
+
+void Dvector::operator=(Dvector vect){
+    taille=vect.taille;
+    free(composante);
+    composante=(double*)malloc(taille*sizeof(double));
+    int i(0);
+    for(i=0;i<taille;i++){
+        composante[i]=vect.composante[i];
+    }
+}
+
