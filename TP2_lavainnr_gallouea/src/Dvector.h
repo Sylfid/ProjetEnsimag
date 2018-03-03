@@ -18,5 +18,6 @@ class Dvector{
         void fillRandomly();
         int size();
         double operator()(int i);
+        Dvector& operator=(const Dvector &v);
 };
 

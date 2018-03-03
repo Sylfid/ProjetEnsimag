@@ -1,1 +1,1 @@
-/usr/bin/c++   -g -Wall    CMakeFiles/exe.dir/src/Test.cpp.o CMakeFiles/exe.dir/src/Dvector.cpp.o  -o exe -rdynamic 
+/usr/bin/c++   -g -Wall   CMakeFiles/exe.dir/src/Test.cpp.o CMakeFiles/exe.dir/src/Dvector.cpp.o  -o exe -rdynamic 
