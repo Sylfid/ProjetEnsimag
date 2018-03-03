@@ -124,7 +124,8 @@ void Dvector::fillRandomly(){
 Dvector& Dvector::operator=(const Dvector &v){
     taille = v.taille;
     free(composante);
-    composante = new double[taille];
+    //composante = new double[taille];
+    composante = (double*) malloc(taille*sizeof(double));
     std::memcpy(composante, v.composante, taille*sizeof(double));
     return *this;
 }
@@ -142,8 +143,8 @@ double Dvector::operator()(int i){
         return 0.0;
     }
 }
-
-void Dvector::operator=(Dvector vect){
+/*
+Dvector& Dvector::operator=(const Dvector &vect){
     taille=vect.taille;
     free(composante);
     composante=(double*)malloc(taille*sizeof(double));
@@ -151,5 +152,54 @@ void Dvector::operator=(Dvector vect){
     for(i=0;i<taille;i++){
         composante[i]=vect.composante[i];
     }
+    return *this;
+}
+*/
+
+void Dvector::operator+=(const Dvector &vect){
+    try{
+        if(vect.taille == taille){
+            int i(0);
+            for(i=0;i<taille;i++){
+                composante[i] += vect.composante[i];
+            }
+        }
+        else{
+            throw std::string ("Les deux vecteurs n'ont pas la même taille");
+        }
+    }catch(std::string const& chaine){
+        std::cerr << chaine << std::endl;
+    }
 }
 
+
+
+void Dvector::operator-=(const Dvector &vect){
+    try{
+        if(vect.taille == taille){
+            int i(0);
+            for(i=0;i<taille;i++){
+                composante[i] -= vect.composante[i];
+            }
+        }
+        else{
+            throw std::string ("Les deux vecteurs n'ont pas la même taille");
+        }
+    }catch(std::string const& chaine){
+        std::cerr << chaine << std::endl;
+    }
+}
+
+void Dvector::operator+=(int i){
+    int j(0);
+    for(j=0;j<taille;j++){
+        composante[j] += (double) i;
+    }
+}
+
+void Dvector::operator-=(int i){
+    int j(0);
+    for(j=0;j<taille;j++){
+        composante[j] -= (double) i;
+    }
+}

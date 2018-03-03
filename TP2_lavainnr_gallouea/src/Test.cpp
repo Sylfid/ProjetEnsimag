@@ -18,6 +18,10 @@ int main(){
   vect.display(cout);
   cout << "\nLa 3eme composante de v est " << v(2) << endl;
   vect = v;
+  vect += v;
+  vect.display(cout);
+  vect += 2.0;
+  cout << "\n\n";
   vect.display(cout);
   return 0;
 }

@@ -19,5 +19,9 @@ class Dvector{
         int size();
         double operator()(int i);
         Dvector& operator=(const Dvector &v);
+        void operator+=(const Dvector &v);
+        void operator+=(int i);
+        void operator-=(const Dvector &v);
+        void operator-=(int i);
 };
 
