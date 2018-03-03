@@ -52,7 +52,6 @@ Dvector::Dvector(std::string file){
     std::cout << "Constructeur avec fichier\n";
     std::ifstream fluxVector(file.c_str());
     if(fluxVector){
-        std::cout << "et ouiiiiii";
         char a;
         composante = NULL;
         int b(0);
@@ -121,7 +120,7 @@ void Dvector::fillRandomly(){
     }
 }
 
-double Dvector::operator[](int i){
+double Dvector::operator()(int i){
     try{
         if(i<0 || i>taille-1){
             throw std::string("Dépassement de taille pour Dvector");
