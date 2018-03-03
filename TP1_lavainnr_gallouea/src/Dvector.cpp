@@ -16,7 +16,7 @@ Dvector::Dvector(int taille2){
     taille=taille2;
     if(!(taille>-1)) return ;
     if(taille==0){
-        composante==NULL;
+        composante=NULL;
     }
     else{
         composante = new double[taille];
