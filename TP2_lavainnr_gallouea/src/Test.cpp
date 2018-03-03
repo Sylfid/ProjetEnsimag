@@ -14,8 +14,8 @@ int main(){
   v.display(str);
   assert(str.str()=="2.5\n2.5\n2.5\n");
   std::cout << "display fonctionne\n" ;
-  Dvector vect("fichierTest");
+  Dvector vect("../src/fichierTest");
   vect.display(cout);
-  cout << "\nLa 3eme composante de v est " << v[2] << endl;
+  cout << "\nLa 3eme composante de v est " << v(2) << endl;
   return 0;
 }
