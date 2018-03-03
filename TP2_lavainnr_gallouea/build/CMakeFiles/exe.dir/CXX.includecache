@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP1_lavainnr_gallouea/src/Dvector.cpp
+exception
+-
+string
+-
+iostream
+-
+Dvector.h
+/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP1_lavainnr_gallouea/src/Dvector.h
+cstdlib
+-
+fstream
+-
+
+/home/ensimag/Desktop/ProjetTP/ProjetEnsimag/TP1_lavainnr_gallouea/src/Dvector.h
+string
+-
+
