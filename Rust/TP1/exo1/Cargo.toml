@@ -1,0 +1,6 @@
+[package]
+name = "exo1"
+version = "0.1.0"
+authors = ["Rémy Lavainne <remy.lavainne@ensimag.grenoble-inp.fr>"]
+
+[dependencies]

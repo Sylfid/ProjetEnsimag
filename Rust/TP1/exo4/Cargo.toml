@@ -1,0 +1,6 @@
+[package]
+name = "exo4"
+version = "0.1.0"
+authors = ["Lavainne Remy <remy.lavainne@grenoble-inp.org>"]
+
+[dependencies]
