@@ -8,9 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <assert.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include "variante.h"
 #include "readcmd.h"
+#include "commande.h"
 
 #ifndef VARIANTE
 #error "Variante non défini !!"
@@ -22,8 +27,11 @@
  * lines in CMakeLists.txt.
  */
 
+
+
+
 #if USE_GUILE == 1
-#include <libguile.h>
+//#include <libguile.h>
 
 int question6_executer(char *line)
 {
@@ -40,10 +48,10 @@ int question6_executer(char *line)
 	return 0;
 }
 
-SCM executer_wrapper(SCM x)
+/*SCM executer_wrapper(SCM x)
 {
         return scm_from_int(question6_executer(scm_to_locale_stringn(x, 0)));
-}
+}*/
 #endif
 
 
@@ -62,10 +70,11 @@ void terminate(char *line) {
 int main() {
         printf("Variante %d: %s\n", VARIANTE, VARIANTE_STRING);
 
+
 #if USE_GUILE == 1
-        scm_init_guile();
+        //scm_init_guile();
         /* register "executer" function in scheme */
-        scm_c_define_gsubr("executer", 1, 0, 0, executer_wrapper);
+        //scm_c_define_gsubr("executer", 1, 0, 0, executer_wrapper);
 #endif
 
 	while (1) {
@@ -73,7 +82,6 @@ int main() {
 		char *line=0;
 		int i, j;
 		char *prompt = "ensishell>";
-
 		/* Readline use some internal memory structure that
 		   can not be cleaned at the end of the program. Thus
 		   one memory leak per command seems unavoidable yet */
@@ -81,6 +89,19 @@ int main() {
 		if (line == 0 || ! strncmp(line,"exit", 4)) {
 			terminate(line);
 		}
+        /*pid_t pid ;
+        int status;
+        switch (pid=fork()){
+            case -1:
+                perror("fork");
+            case 0:
+                execvp(line,tableau_taille_nul);
+                assert(0);
+            default:
+                waitpid(0,&status,0);
+                free(*tableau_taille_nul);
+                break;
+        }*/                
 
 #if USE_GNU_READLINE == 1
 		add_history(line);
@@ -92,12 +113,11 @@ int main() {
 		if (line[0] == '(') {
 			char catchligne[strlen(line) + 256];
 			sprintf(catchligne, "(catch #t (lambda () %s) (lambda (key . parameters) (display \"mauvaise expression/bug en scheme\n\")))", line);
-			scm_eval_string(scm_from_locale_string(catchligne));
+			//scm_eval_string(scm_from_locale_string(catchligne));  attentiona enlever de commentaire
 			free(line);
                         continue;
                 }
 #endif
-
 		/* parsecmd free line and set it up to 0 */
 		l = parsecmd( & line);
 
@@ -119,9 +139,9 @@ int main() {
 		if (l->out) printf("out: %s\n", l->out);
 		if (l->bg) printf("background (&)\n");
 
+        execcmd(l);
 		/* Display each command of the pipe */
-		for (i=0; l->seq[i]!=0; i++) {
-			char **cmd = l->seq[i];
+		for (i=0; l->seq[i]!=0; i++) { char **cmd = l->seq[i];
 			printf("seq[%d]: ", i);
                         for (j=0; cmd[j]!=0; j++) {
                                 printf("'%s' ", cmd[j]);
