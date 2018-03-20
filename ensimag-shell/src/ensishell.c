@@ -79,9 +79,12 @@ int main() {
 
 	while (1) {
 		struct cmdline *l;
+        int* compteur=(int*)malloc(sizeof(int));
+        *compteur=0;
 		char *line=0;
 		int i, j;
 		char *prompt = "ensishell>";
+        struct cmdBgList* pidList = createCmdBgList();
 		/* Readline use some internal memory structure that
 		   can not be cleaned at the end of the program. Thus
 		   one memory leak per command seems unavoidable yet */
@@ -138,8 +141,8 @@ int main() {
 		if (l->in) printf("in: %s\n", l->in);
 		if (l->out) printf("out: %s\n", l->out);
 		if (l->bg) printf("background (&)\n");
-
-        execcmd(l);
+        
+        execcmd(l,pidList);
 		/* Display each command of the pipe */
 		for (i=0; l->seq[i]!=0; i++) { char **cmd = l->seq[i];
 			printf("seq[%d]: ", i);
