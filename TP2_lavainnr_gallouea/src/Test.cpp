@@ -28,7 +28,6 @@ int main(){
   cout << "a vaut :" << endl;
   a.display(cout);
   a = a + a;
-  cout << "a + a vaut :" << endl;
   a.display(cout);
 
   return 0;

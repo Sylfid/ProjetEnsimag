@@ -92,7 +92,7 @@ Dvector::~Dvector(){
     free(composante);
 }
 
-void Dvector::display(std::ostream& str){
+void Dvector::display(std::ostream& str) const{
     int i=0;
     for(i=0;i<taille;i++){
         str << composante[i];
@@ -130,7 +130,7 @@ Dvector& Dvector::operator=(const Dvector &v){
     return *this;
 }
 
-double Dvector::operator()(int i){
+double Dvector::operator()(int i) const{
     try{
         if(i<0 || i>taille-1){
             throw std::string("Dépassement de taille pour Dvector");
@@ -204,6 +204,18 @@ void Dvector::operator-=(int i){
     }
 }
 
+void Dvector::operator*=(double d){
+    for(int i(0); i < taille; i++){
+        composante[i] *= d;
+    }
+}
+
+void Dvector::operator/=(double d){
+    for(int i(0); i < taille; i++){
+        composante[i] /= d;
+    }
+}
+
 
 //surcharges externes
 Dvector operator+(const Dvector &a,const Dvector &b){
@@ -222,4 +234,27 @@ Dvector operator-(const Dvector &a,const Dvector &b){
     Dvector v(a);
     v-=b;
     return v;
-} 
+}
+
+Dvector operator-(const Dvector &a){
+    Dvector v(a);
+    v *= -1;
+    return v;
+}
+
+bool operator==(const Dvector &a, const Dvector &b){
+    if(a.size() != b.size()){
+        throw std::string("Les deux vecteurs n'ont pas la même taille");
+    }
+    for (int i(0); i < a.size(); i++){
+        if (a(i) != b(i)){
+            return false;
+        }
+    }
+    return true;
+}
+
+//std::ostream& operator<<(std::ostream &str, const Dvector &v){
+//    v.display(str);
+//    return str;
+//}
