@@ -23,5 +23,13 @@ int main(){
   vect += 2.0;
   cout << "\n\n";
   vect.display(cout);
+
+  Dvector a(5,1);
+  cout << "a vaut :" << endl;
+  a.display(cout);
+  a = a + a;
+  cout << "a + a vaut :" << endl;
+  a.display(cout);
+
   return 0;
 }

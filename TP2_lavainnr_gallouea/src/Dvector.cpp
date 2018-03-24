@@ -106,7 +106,7 @@ void Dvector::setVector(int i, double newvaleur){
     }
 }
 
-int Dvector::size(){
+int Dvector::size() const{
     return taille;
 }
 
@@ -203,3 +203,23 @@ void Dvector::operator-=(int i){
         composante[j] -= (double) i;
     }
 }
+
+
+//surcharges externes
+Dvector operator+(const Dvector &a,const Dvector &b){
+    if(a.size() != b.size()){
+        throw std::string("Les deux vecteurs n'ont pas la même taille");
+    }
+    Dvector v(a);
+    v+=b;
+    return v;
+}
+
+Dvector operator-(const Dvector &a,const Dvector &b){
+    if(a.size() != b.size()){
+        throw std::string("Les deux vecteurs n'ont pas la même taille");
+    }
+    Dvector v(a);
+    v-=b;
+    return v;
+} 

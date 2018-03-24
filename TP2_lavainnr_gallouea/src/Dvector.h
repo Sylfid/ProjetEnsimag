@@ -16,7 +16,7 @@ class Dvector{
         void setVector(int i, double newvaleur);
         void addValeur(double newValeur);
         void fillRandomly();
-        int size();
+        int size() const;
         double operator()(int i);
         Dvector& operator=(const Dvector &v);
         void operator+=(const Dvector &v);
@@ -25,3 +25,5 @@ class Dvector{
         void operator-=(int i);
 };
 
+Dvector operator+(const Dvector &a, const Dvector &b);
+Dvector operator-(const Dvector &a, const Dvector &b);
