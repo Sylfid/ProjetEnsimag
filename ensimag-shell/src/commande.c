@@ -1,6 +1,6 @@
 #include "commande.h"
 
-void execcmd(struct cmdline *cmd, struct cmdBgList *pidList){
+void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
         pid_t pid ;
         switch (pid=fork()){
             case -1:
@@ -13,10 +13,19 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *pidList){
                    waitpid(pid,NULL,0);
                 }
                 else{
-                    addPid(pidList,pid); 
-                    printf("[%d] %d\n",pidList->taille, pid);
+                    struct cmdBgCell* actualCell=cmdList->debut;
+                    struct cmdBgCell* actualCellCopy=actualCell;
+                    while(actualCell!=NULL){
+                        actualCellCopy=actualCell->next;
+                        if(waitpid(actualCell->cmd.pid,NULL,WNOHANG)==
+                                actualCell->cmd.pid){
+                            rmCmdBg(cmdList,actualCell);
+                        }
+                        actualCell=actualCellCopy;
+                    }
+                    addPid(cmdList,pid); 
+                    printf("[%d] %d\n",cmdList->fin->cmd.numero, pid);
                 }
-                //for(i=0;i<pidList->taille;i++){
 
                 break;
         }
@@ -30,20 +39,63 @@ struct cmdBg* createCmdBg(pid_t pid, int num){
     return pidList;
 }
 
+struct cmdBgCell* createCmdBgCell(struct cmdBg cmd, struct cmdBgCell* previous){
+    struct cmdBgCell* cell=(struct cmdBgCell*)malloc(sizeof(struct cmdBgCell));
+    cell->prev=previous;
+    cell->next=NULL;
+    cell->cmd=cmd;
+    return cell;
+}
+
+
 void addPid(struct cmdBgList* pidList, pid_t pid){
-    pidList->taille++;
-    struct cmdBg* newCmd = createCmdBg(pid,pidList->taille);
-    pidList->cmd= (struct cmdBg*)realloc(pidList->cmd, sizeof(struct cmdBg)*pidList->taille);
-    pidList->cmd[pidList->taille-1]=*newCmd;
+    int numero = 1;
+    if(pidList->debut != NULL){
+        numero=pidList->fin->cmd.numero+1;
+    }
+    struct cmdBgCell* newCell = createCmdBgCell(
+            *createCmdBg(pid,numero),pidList->fin);
+    if(pidList->debut == NULL){
+        pidList->debut=newCell;
+        pidList->fin=newCell;
+    }
+    else{
+        pidList->fin->next=newCell;
+        pidList->fin=newCell;
+    }
 }
 
 
 struct cmdBgList* createCmdBgList(){
-    struct cmdBgList* list = (struct cmdBgList*)malloc(sizeof(struct cmdBgList));
-    list->taille=0;
-    list->cmd=NULL;
+    struct cmdBgList* list = (struct cmdBgList*)
+        malloc(sizeof(struct cmdBgList));
+    list->debut=NULL;
+    list->fin=NULL;
     return list;
 }
+
+void rmCmdBg(struct cmdBgList* cmdList, struct cmdBgCell* cmdCell){
+    int flag=0;
+    if(cmdList->fin == cmdCell){
+        cmdList->fin=NULL;
+        flag=1;
+    }
+    if(cmdList->debut == cmdCell){
+       cmdList->debut=NULL;
+       flag=1;
+    }
+    if(!flag){
+        cmdCell->prev->next=cmdCell->next;
+        cmdCell->next->prev=cmdCell->prev;
+        free(cmdCell);
+    }
+    else{
+        free(cmdCell);
+    }
+       
+
+}
+
 
 /*
 void execcmdbg(struct cmdline *cmd){

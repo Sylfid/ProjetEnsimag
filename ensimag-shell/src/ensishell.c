@@ -77,6 +77,7 @@ int main() {
         //scm_c_define_gsubr("executer", 1, 0, 0, executer_wrapper);
 #endif
 
+    struct cmdBgList* pidList = createCmdBgList();
 	while (1) {
 		struct cmdline *l;
         int* compteur=(int*)malloc(sizeof(int));
@@ -84,7 +85,6 @@ int main() {
 		char *line=0;
 		int i, j;
 		char *prompt = "ensishell>";
-        struct cmdBgList* pidList = createCmdBgList();
 		/* Readline use some internal memory structure that
 		   can not be cleaned at the end of the program. Thus
 		   one memory leak per command seems unavoidable yet */

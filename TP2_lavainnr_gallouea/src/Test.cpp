@@ -28,7 +28,13 @@ int main(){
   cout << "a vaut :" << endl;
   a.display(cout);
   a = a + a;
-  a.display(cout);
+  cout << a;
+  cout << "salut\n";
+  cin >> a;
+  cout << "salut\n";
+  cout << a;
+  a.resize(7,2.0);
+  cout << a;
 
   return 0;
 }

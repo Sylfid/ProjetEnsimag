@@ -130,7 +130,7 @@ Dvector& Dvector::operator=(const Dvector &v){
     return *this;
 }
 
-double Dvector::operator()(int i) const{
+double & Dvector::operator()(int i) const{
     try{
         if(i<0 || i>taille-1){
             throw std::string("Dépassement de taille pour Dvector");
@@ -140,7 +140,7 @@ double Dvector::operator()(int i) const{
         }
     }catch(std::string const& chaine){
         std::cerr << chaine << std::endl;
-        return 0.0;
+        throw std::string("Dépassement de taille pour Dvector");
     }
 }
 /*
@@ -236,15 +236,48 @@ Dvector operator-(const Dvector &a,const Dvector &b){
     return v;
 }
 
-Dvector operator-(const Dvector &a){
-    Dvector v(a);
-    v *= -1;
-    return v;
+
+Dvector operator*(const Dvector &a, double b){
+    Dvector newVec(a.size());
+    int i(0);
+    for(i=0;i<a.size();i++){
+        newVec(i)=a(i)*b;
+    }
+    return newVec;
 }
+
+
+
+Dvector operator*(double b, const Dvector &a){
+    return a*b;
+}
+
+Dvector operator/(const Dvector &a, double b){
+    Dvector newVec(a.size());
+    int i(0);
+    for(i=0;i<a.size();i++){
+        newVec(i)=a(i)/b;
+    }
+    return newVec;
+}
+
+Dvector operator/(double b, const Dvector &a){
+    return a/b;
+}
+
+Dvector operator-(const Dvector &a){
+    Dvector newVec(a.size());
+    int i(0);
+    for(i=0;i<a.size();i++){
+        newVec(i)=-a(i);
+    }
+    return newVec;
+}
+
 
 bool operator==(const Dvector &a, const Dvector &b){
     if(a.size() != b.size()){
-        throw std::string("Les deux vecteurs n'ont pas la même taille");
+        return false;
     }
     for (int i(0); i < a.size(); i++){
         if (a(i) != b(i)){
@@ -254,7 +287,34 @@ bool operator==(const Dvector &a, const Dvector &b){
     return true;
 }
 
-//std::ostream& operator<<(std::ostream &str, const Dvector &v){
-//    v.display(str);
-//    return str;
-//}
+std::ostream& operator<<(std::ostream &str, const Dvector v){
+    v.display(str);
+    return str;
+}
+
+std::istream& operator>>(std::istream &str, Dvector &v){
+    double newValeur(0);
+    int i(0);
+    for(i=0;i<v.size();i++){
+        str >> newValeur;
+        v.setVector(i,newValeur);
+        std::cout << v;
+    }
+    return str;
+}
+
+void Dvector::resize(int newTaille, double valeur){
+    if(newTaille>taille){
+        double* newVec(new double[newTaille]);
+        int i(0);        
+        for(i=0;i<taille;i++){
+            newVec[i]= this->composante[i];
+        }
+        for(i=taille;i<newTaille;i++){
+            newVec[i]=valeur;
+        }
+        free(this->composante);
+        this->composante=newVec;
+    }
+    taille=newTaille;
+}

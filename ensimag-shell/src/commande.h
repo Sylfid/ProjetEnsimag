@@ -9,20 +9,29 @@
 #include <sys/wait.h>
 #include <assert.h>
 
-struct cmdBgList{
-    int taille;
-    struct cmdBg* cmd;
-};
-
 struct cmdBg{
     int numero;
     pid_t pid;
 };
 
+struct cmdBgCell{
+    struct cmdBgCell* prev;
+    struct cmdBg cmd;
+    struct cmdBgCell* next;
+};
+
+
+struct cmdBgList{
+    struct cmdBgCell* debut;
+    struct cmdBgCell* fin;
+};
+
 void execcmd (struct cmdline *cmd, struct cmdBgList *pidList);
 
 
+struct cmdBgCell* createCmdBgCell(struct cmdBg cmd, struct cmdBgCell* previous);
 struct cmdBg* createCmdBg(pid_t pid, int num);
 void addPid(struct cmdBgList* pidList, pid_t pid);
 struct cmdBgList* createCmdBgList();
+void rmCmdBg(struct cmdBgList* cmdList, struct cmdBgCell* cmdCell);
 #endif
