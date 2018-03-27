@@ -8,7 +8,7 @@ using namespace std;
 
 int main(){
     Height* test(new Height(4,4));
-    //test->display(cout);
-    free(test);
+    test->display(cout);
+    delete test;
     return 0;
 }

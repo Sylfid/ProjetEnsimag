@@ -88,7 +88,7 @@ Dvector::Dvector(std::string file){
 }
 
 Dvector::~Dvector(){
-    std::cout << "Destructeur\n";
+    std::cout << "Destructeur Dvector\n";
     free(composante);
 }
 

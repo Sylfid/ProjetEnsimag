@@ -25,7 +25,12 @@ Height::Height(int taillex, int tailley){
 
 
 Height::~Height(){
-    std::cout << "Destructeur\n";
+    std::cout << "Destructeur Height\n";
+    int i(0);
+    for(i=0;i<this->tailley;i++){
+        std::cout<<i;
+        delete lignex[i];
+    }
     free(lignex);
 }
 
@@ -36,3 +41,17 @@ void Height::display(std::ostream& str) const{
     }
 }
 
+
+double & operator()(int i, int j) const{
+    try{
+        if(j<0 || j>tailley-1 || i<0 || i>this->lignex[j]->taille){
+            throw std::string("Dépassement de taille pour Height");
+        }
+        else{
+            return this->lignex[j]->composante[i];
+        }
+    }catch(std::string const& chaine){
+        std::cerr << chaine << std::endl;
+        throw std::string("Dépassement de taille pour Height");
+    }
+}
