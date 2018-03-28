@@ -1,28 +1,32 @@
 #include "commande.h"
 
 void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
+        struct cmdBgCell* actualCell=cmdList->debut;
+        struct cmdBgCell* actualCellCopy=actualCell;
         pid_t pid ;
         switch (pid=fork()){
             case -1:
                 perror("fork");
             case 0:
                 switchPipe(cmd);
+                if(strncmp(*cmd->seq[0], "jobs", 4)){
+                    assert(0);
+                }
                 assert(0);
             default:
+                while(actualCell!=NULL){
+                    actualCellCopy=actualCell->next;
+                    if(waitpid(actualCell->cmd.pid,NULL,WNOHANG)==
+                            actualCell->cmd.pid){
+                        printf("[%d] %d Done\n",cmdList->fin->cmd.numero, actualCell->cmd.pid);
+                        rmCmdBg(cmdList,actualCell);
+                    }
+                    actualCell=actualCellCopy;
+                }
                 if(cmd->bg == 0){
                    waitpid(pid,NULL,0);
                 }
                 else{
-                    struct cmdBgCell* actualCell=cmdList->debut;
-                    struct cmdBgCell* actualCellCopy=actualCell;
-                    while(actualCell!=NULL){
-                        actualCellCopy=actualCell->next;
-                        if(waitpid(actualCell->cmd.pid,NULL,WNOHANG)==
-                                actualCell->cmd.pid){
-                            rmCmdBg(cmdList,actualCell);
-                        }
-                        actualCell=actualCellCopy;
-                    }
                     addPid(cmdList,pid); 
                     printf("[%d] %d\n",cmdList->fin->cmd.numero, pid);
                 }
@@ -99,25 +103,21 @@ struct cmdBgList* createCmdBgList(){
 }
 
 void rmCmdBg(struct cmdBgList* cmdList, struct cmdBgCell* cmdCell){
-    int flag=0;
-    if(cmdList->fin == cmdCell){
+    if(cmdList->fin == cmdCell && cmdList->debut == cmdCell){
         cmdList->fin=NULL;
-        flag=1;
+        cmdList->debut=NULL;
     }
-    if(cmdList->debut == cmdCell){
-       cmdList->debut=NULL;
-       flag=1;
+    else if(cmdList->debut == cmdCell){
+       cmdList->debut= cmdList->debut->next;
     }
-    if(!flag){
+    else if(cmdList->fin == cmdCell){
+       cmdList->fin= cmdList->fin->prev;
+    }
+    else{
         cmdCell->prev->next=cmdCell->next;
         cmdCell->next->prev=cmdCell->prev;
-        free(cmdCell);
     }
-    else{http://chamilo.grenoble-inp.fr/user_portal.php
-        free(cmdCell);
-    }
-       
-
+    free(cmdCell);
 }
 
 
