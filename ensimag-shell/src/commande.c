@@ -1,5 +1,5 @@
 #include "commande.h"
-
+#include "fcntl.h"
 void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
         struct cmdBgCell* actualCell=cmdList->debut;
         struct cmdBgCell* actualCellCopy=actualCell;
@@ -35,6 +35,17 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
 }
 
 void switchPipe(struct cmdline *cmd){
+    int ifile, ofile;
+    if(cmd->in != NULL){
+        ifile = open(cmd->in, O_RDONLY);
+        dup2(ifile, 0);
+        close(ifile);
+    }
+    if(cmd->out != NULL){
+        ofile = open(cmd->out, O_WRONLY);
+        dup2(ofile, 1);
+        close(ofile);
+    }
     if(cmd->seq[1] == NULL){
         execvp(*cmd->seq[0], cmd->seq[0]);
     }
@@ -50,14 +61,14 @@ void pipeCmd(struct cmdline *cmd){
     pid=fork();
     if(pid == 0){
         dup2(daPipe[0], 0);
-        close(daPipe[0]);
         close(daPipe[1]);
-        execvp(*cmd->seq[0], cmd->seq[0]);
+        close(daPipe[0]);
+        execvp(*cmd->seq[1], cmd->seq[1]);
     }
     dup2(daPipe[1], 1);
     close(daPipe[0]);
     close(daPipe[1]);
-    execvp(*cmd->seq[1], cmd->seq[1]);
+    execvp(*cmd->seq[0], cmd->seq[0]);
 }
 
 struct cmdBg* createCmdBg(pid_t pid, int num){
