@@ -23,7 +23,14 @@ int main(int argc, char *argv[]) {
     assert(res == 0);
     
     // start the two stream readers
+    pid_t pid;
+    switch(pid=fork()){
+        case -1:
+            assert(0);
+            break;
+        case 0:
 
+    }
     
     // wait audio thread
 
