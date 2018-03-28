@@ -8,17 +8,17 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
             case -1:
                 perror("fork");
             case 0:
-                switchPipe(cmd);
-                if(strncmp(*cmd->seq[0], "jobs", 4)){
+                if(!strncmp(*cmd->seq[0], "jobs", 4)){
                     assert(0);
                 }
+                switchPipe(cmd);
                 assert(0);
             default:
                 while(actualCell!=NULL){
                     actualCellCopy=actualCell->next;
                     if(waitpid(actualCell->cmd.pid,NULL,WNOHANG)==
                             actualCell->cmd.pid){
-                        printf("[%d] %d Done\n",cmdList->fin->cmd.numero, actualCell->cmd.pid);
+                        printf("[%d] %d Done\n",actualCell->cmd.numero, actualCell->cmd.pid);
                         rmCmdBg(cmdList,actualCell);
                     }
                     actualCell=actualCellCopy;
