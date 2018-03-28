@@ -43,7 +43,7 @@ int question6_executer(char *line)
     
 	/* Remove this line when using parsecmd as it will free it */
     struct cmdline *l = parsecmd(& line);
-	execcmd(l);
+	execcmdlg(l);
 	
 	return 0;
 }

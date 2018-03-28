@@ -36,4 +36,5 @@ struct cmdBg* createCmdBg(pid_t pid, int num, char* name);
 void addPid(struct cmdBgList* pidList, pid_t pid, char* name);
 struct cmdBgList* createCmdBgList();
 void rmCmdBg(struct cmdBgList* cmdList, struct cmdBgCell* cmdCell);
+void execcmdln(struct cmdline *cmd);
 #endif

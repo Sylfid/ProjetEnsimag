@@ -4,6 +4,7 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
         struct cmdBgCell* actualCell=cmdList->debut;
         struct cmdBgCell* actualCellCopy=actualCell;
         pid_t pid ;
+        int j=0;
         switch (pid=fork()){
             case -1:
                 perror("fork");
@@ -24,7 +25,9 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
                     actualCell=cmdList->debut;
                     while(actualCell!=NULL){
                         printf("[%d] ", actualCell->cmd.numero);
-                        printf(actualCell->cmd.name);
+                        for (j=0; actualCell->cmd.name[j]!=0; j++) {
+                                printf("%c", actualCell->cmd.name[j]);
+                        }
                         printf("\n");
                         actualCell=actualCell->next;
                     }
@@ -81,7 +84,17 @@ struct cmdBg* createCmdBg(pid_t pid, int num, char* name){
     struct cmdBg* pidList = (struct cmdBg*)malloc(sizeof(struct cmdBg));
     pidList->numero=num;
     pidList->pid=pid;
-    pidList->name=name;
+    char actualChar='a';
+    int i=0,j=0;
+    while(actualChar != '\0'){
+        actualChar=name[i];
+        i++;
+    }
+    printf("%d",i);
+    pidList->name=(char*)malloc(i*sizeof(char));
+    for(j=0;j<i;j++){
+        pidList->name[i]=name[i];
+    }
     return pidList;
 }
 
@@ -127,9 +140,11 @@ void rmCmdBg(struct cmdBgList* cmdList, struct cmdBgCell* cmdCell){
     }
     else if(cmdList->debut == cmdCell){
        cmdList->debut= cmdList->debut->next;
+       cmdList->debut->prev=NULL;
     }
     else if(cmdList->fin == cmdCell){
        cmdList->fin= cmdList->fin->prev;
+       cmdList->fin->next=NULL;
     }
     else{
         cmdCell->prev->next=cmdCell->next;
@@ -138,6 +153,21 @@ void rmCmdBg(struct cmdBgList* cmdList, struct cmdBgCell* cmdCell){
     free(cmdCell);
 }
 
+void execcmdln(struct cmdline *cmd){ 
+        pid_t pid ;
+        switch (pid=fork()){
+            case -1:
+                perror("fork");
+            case 0:
+                switchPipe(cmd);
+                assert(0);
+            default:
+                if(cmd->bg == 0){
+                   waitpid(pid,NULL,0);
+                }
+                break;
+        }
+}
 
 /*
 void execcmdbg(struct cmdline *cmd){
