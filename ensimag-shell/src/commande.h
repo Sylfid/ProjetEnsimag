@@ -28,7 +28,8 @@ struct cmdBgList{
 
 void execcmd (struct cmdline *cmd, struct cmdBgList *pidList);
 
-
+void switchPipe(struct cmdline *cmd);
+void pipeCmd(struct cmdline *cmd);
 struct cmdBgCell* createCmdBgCell(struct cmdBg cmd, struct cmdBgCell* previous);
 struct cmdBg* createCmdBg(pid_t pid, int num);
 void addPid(struct cmdBgList* pidList, pid_t pid);

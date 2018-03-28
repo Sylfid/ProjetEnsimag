@@ -6,7 +6,7 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
             case -1:
                 perror("fork");
             case 0:
-                execvp(*cmd->seq[0],*cmd->seq);
+                switchPipe(cmd);
                 assert(0);
             default:
                 if(cmd->bg == 0){
@@ -26,10 +26,34 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
                     addPid(cmdList,pid); 
                     printf("[%d] %d\n",cmdList->fin->cmd.numero, pid);
                 }
-
                 break;
         }
+}
 
+void switchPipe(struct cmdline *cmd){
+    if(cmd->seq[1] == NULL){
+        execvp(*cmd->seq[0], cmd->seq[0]);
+    }
+    else{
+        pipeCmd(cmd);
+    }
+}
+
+void pipeCmd(struct cmdline *cmd){
+    pid_t pid;
+    int daPipe[2];
+    pipe(daPipe);
+    pid=fork();
+    if(pid == 0){
+        dup2(daPipe[0], 0);
+        close(daPipe[0]);
+        close(daPipe[1]);
+        execvp(*cmd->seq[0], cmd->seq[0]);
+    }
+    dup2(daPipe[1], 1);
+    close(daPipe[0]);
+    close(daPipe[1]);
+    execvp(*cmd->seq[1], cmd->seq[1]);
 }
 
 struct cmdBg* createCmdBg(pid_t pid, int num){
@@ -89,7 +113,7 @@ void rmCmdBg(struct cmdBgList* cmdList, struct cmdBgCell* cmdCell){
         cmdCell->next->prev=cmdCell->prev;
         free(cmdCell);
     }
-    else{
+    else{http://chamilo.grenoble-inp.fr/user_portal.php
         free(cmdCell);
     }
        
