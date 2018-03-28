@@ -12,6 +12,7 @@
 struct cmdBg{
     int numero;
     pid_t pid;
+    char* name;
 };
 
 struct cmdBgCell{
@@ -31,8 +32,8 @@ void execcmd (struct cmdline *cmd, struct cmdBgList *pidList);
 void switchPipe(struct cmdline *cmd);
 void pipeCmd(struct cmdline *cmd);
 struct cmdBgCell* createCmdBgCell(struct cmdBg cmd, struct cmdBgCell* previous);
-struct cmdBg* createCmdBg(pid_t pid, int num);
-void addPid(struct cmdBgList* pidList, pid_t pid);
+struct cmdBg* createCmdBg(pid_t pid, int num, char* name);
+void addPid(struct cmdBgList* pidList, pid_t pid, char* name);
 struct cmdBgList* createCmdBgList();
 void rmCmdBg(struct cmdBgList* cmdList, struct cmdBgCell* cmdCell);
 #endif

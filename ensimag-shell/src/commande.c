@@ -8,9 +8,6 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
             case -1:
                 perror("fork");
             case 0:
-                if(!strncmp(*cmd->seq[0], "jobs", 4)){
-                    assert(0);
-                }
                 switchPipe(cmd);
                 assert(0);
             default:
@@ -23,11 +20,20 @@ void execcmd(struct cmdline *cmd, struct cmdBgList *cmdList){
                     }
                     actualCell=actualCellCopy;
                 }
+                if(!strncmp(*cmd->seq[0], "jobs", 4)){
+                    actualCell=cmdList->debut;
+                    while(actualCell!=NULL){
+                        printf("[%d] ", actualCell->cmd.numero);
+                        printf(actualCell->cmd.name);
+                        printf("\n");
+                        actualCell=actualCell->next;
+                    }
+                }
                 if(cmd->bg == 0){
                    waitpid(pid,NULL,0);
                 }
                 else{
-                    addPid(cmdList,pid); 
+                    addPid(cmdList,pid,*cmd->seq[0]); 
                     printf("[%d] %d\n",cmdList->fin->cmd.numero, pid);
                 }
                 break;
@@ -71,10 +77,11 @@ void pipeCmd(struct cmdline *cmd){
     execvp(*cmd->seq[0], cmd->seq[0]);
 }
 
-struct cmdBg* createCmdBg(pid_t pid, int num){
+struct cmdBg* createCmdBg(pid_t pid, int num, char* name){
     struct cmdBg* pidList = (struct cmdBg*)malloc(sizeof(struct cmdBg));
     pidList->numero=num;
     pidList->pid=pid;
+    pidList->name=name;
     return pidList;
 }
 
@@ -87,13 +94,13 @@ struct cmdBgCell* createCmdBgCell(struct cmdBg cmd, struct cmdBgCell* previous){
 }
 
 
-void addPid(struct cmdBgList* pidList, pid_t pid){
+void addPid(struct cmdBgList* pidList, pid_t pid, char* name){
     int numero = 1;
     if(pidList->debut != NULL){
         numero=pidList->fin->cmd.numero+1;
     }
     struct cmdBgCell* newCell = createCmdBgCell(
-            *createCmdBg(pid,numero),pidList->fin);
+            *createCmdBg(pid,numero,name),pidList->fin);
     if(pidList->debut == NULL){
         pidList->debut=newCell;
         pidList->fin=newCell;
