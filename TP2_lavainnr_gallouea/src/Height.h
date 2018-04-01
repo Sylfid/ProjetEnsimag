@@ -11,6 +11,7 @@ class Height{
         Height(int taillex, int tailley);
         ~Height();
         void display(std::ostream& str) const;
+        //double & operator()(int i, int j) const;
         double & operator()(int i, int j) const;
         //Dvector(Dvector const& copie);
         //Dvector(int taille2, double initialisation);

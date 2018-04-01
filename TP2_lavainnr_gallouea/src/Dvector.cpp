@@ -143,6 +143,25 @@ double & Dvector::operator()(int i) const{
         throw std::string("Dépassement de taille pour Dvector");
     }
 }
+
+int Dvector::getTaille(){
+    return this->taille;
+}
+
+double Dvector::getComposante(int i){
+    try{
+        if(i<0 || i>taille-1){
+            throw std::string("Dépassement de taille pour Dvector");
+        }
+        else{
+            return composante[i];            
+        }
+    }catch(std::string const& chaine){
+        std::cerr << chaine << std::endl;
+        throw std::string("Dépassement de taille pour Dvector");
+    }
+}
+
 /*
 Dvector& Dvector::operator=(const Dvector &vect){
     taille=vect.taille;

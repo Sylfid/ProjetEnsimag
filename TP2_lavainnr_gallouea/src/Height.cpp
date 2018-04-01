@@ -41,17 +41,18 @@ void Height::display(std::ostream& str) const{
     }
 }
 
-
-double & operator()(int i, int j) const{
+double & Height::operator()(int i, int j) const{
     try{
-        if(j<0 || j>tailley-1 || i<0 || i>this->lignex[j]->taille){
-            throw std::string("Dépassement de taille pour Height");
+        if(j<0 || j>this->tailley || i<0 
+                || i>1){//this->lignex[j].taille-1){
+            throw std::string("Dépassement de taille pour Dvector");
         }
         else{
-            return this->lignex[j]->composante[i];
+            return this->lignex[i].getComposante(j);
         }
     }catch(std::string const& chaine){
         std::cerr << chaine << std::endl;
-        throw std::string("Dépassement de taille pour Height");
+        throw std::string("Dépassement de taille pour Dvector");
     }
 }
+
