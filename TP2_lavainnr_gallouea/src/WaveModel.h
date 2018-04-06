@@ -12,8 +12,8 @@ class WaveModel{
     public:
         WaveModel();
         WaveModel(Height* wave, Dvector* wind, Dvector* alignment, double intensite,
-                double waveLenght) = 0;
-        ~WaveModel();
+                double waveLenght) ;
+        ~WaveModel()=0;
         void display(std::ostream& str) const;
 
 }

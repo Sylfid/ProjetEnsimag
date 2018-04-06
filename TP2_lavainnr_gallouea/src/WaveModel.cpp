@@ -15,11 +15,11 @@ WaveModel::WaveModel(){
 }
 
 WaveModel::WaveModel(Height* wave, Dvector* wind, Dvector* alignment, double intensite,
-                double waveLenght) = 0{
+                double waveLenght){
     this->wave = wave;
     this->wind = wind;
     this->alignment = alignment;
     this->intensite = intensite;
     this->waveLength = waveLenght;
 }
-
+ 

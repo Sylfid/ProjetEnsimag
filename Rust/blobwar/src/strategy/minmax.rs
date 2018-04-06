@@ -9,11 +9,30 @@ pub struct MinMax(pub u8);
 
 impl Strategy for MinMax {
     fn compute_next_move(&mut self, state: &Configuration) -> Option<Movement> {
-       let mut m = None;
+       /*let mut m = None;
        let mut max = -127;
        for mov in state.movements(){
             
+       }*/
+        
+        unimplemented!("implementer minmax");
+    }
+    
+    fn compute_best_move(&mut self, state: &Configuration) -> i8 {
+       
+       let mut best_move:i8= -state.value();
+       let mut other_move:i8=0;
+       let mut &Configuration newState;
+       for mov in state.movements(){
+           newState = state.play(&mov);
+           self.0 -=1;
+           other_move=self.compute_best_move(newState);
+           if best_move < other_move{ 
+               best_move=other_move;
+           }
+           self.0 +=1;
        }
+       best_move 
     }
 }
 
