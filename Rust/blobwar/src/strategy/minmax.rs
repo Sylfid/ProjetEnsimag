@@ -10,10 +10,16 @@ pub struct MinMax(pub u8);
 impl Strategy for MinMax {
     fn compute_next_move(&mut self, state: &Configuration) -> Option<Movement> {
        let mut m = None;
-       let mut max = -127;
+       let mut val;
+       let mut max = -state.value();
        for mov in state.movements(){
-            
+           val = compute_best_move(self.0, state.play(&mov));
+           if val > max{
+               max = val;
+               m = Some(mov);
+           }
        }
+       m
     }
 }
 
