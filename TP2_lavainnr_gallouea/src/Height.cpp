@@ -48,7 +48,7 @@ double & Height::operator()(int i, int j) const{
             throw std::string("Dépassement de taille pour Dvector");
         }
         else{
-            return this->lignex[i].getComposante(j);
+            return this->lignex[i]->getComposante(j);
         }
     }catch(std::string const& chaine){
         std::cerr << chaine << std::endl;

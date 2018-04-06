@@ -148,7 +148,7 @@ int Dvector::getTaille(){
     return this->taille;
 }
 
-double Dvector::getComposante(int i){
+double & Dvector::getComposante(int i){
     try{
         if(i<0 || i>taille-1){
             throw std::string("Dépassement de taille pour Dvector");
