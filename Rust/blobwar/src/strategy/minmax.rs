@@ -18,22 +18,6 @@ impl Strategy for MinMax {
         unimplemented!("implementer minmax");
     }
     
-    fn compute_best_move(&mut self, state: &Configuration) -> i8 {
-       
-       let mut best_move:i8= -state.value();
-       let mut other_move:i8=0;
-       let mut &Configuration newState;
-       for mov in state.movements(){
-           newState = state.play(&mov);
-           self.0 -=1;
-           other_move=self.compute_best_move(newState);
-           if best_move < other_move{ 
-               best_move=other_move;
-           }
-           self.0 +=1;
-       }
-       best_move 
-    }
 }
 
 impl fmt::Display for MinMax {
@@ -42,6 +26,22 @@ impl fmt::Display for MinMax {
     }
 }
 
+fn compute_best_move(depth: i8, state: &Configuration) -> i8 {
+   if (depth as i8) == 0{
+       state.value()
+   }
+   let mut best_move:i8= -state.value();
+   let mut other_move:i8=0;
+   let mut &Configuration newState;
+   for mov in state.movements(){
+       newState = state.play(&mov);
+       other_move=compute_best_move(depth-1,newState);
+       if best_move < other_move{ 
+           best_move=other_move;
+       }
+   }
+   best_move 
+}
 /// Anytime min max algorithm.
 /// Any time algorithms will compute until a deadline is hit and the process is killed.
 /// They are therefore run in another process and communicate through shared memory.
