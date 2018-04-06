@@ -9,7 +9,11 @@ pub struct MinMax(pub u8);
 
 impl Strategy for MinMax {
     fn compute_next_move(&mut self, state: &Configuration) -> Option<Movement> {
-        unimplemented!("TODO: implementer min max")
+       let mut m = None;
+       let mut max = -127;
+       for mov in state.movements(){
+            
+       }
     }
 }
 
