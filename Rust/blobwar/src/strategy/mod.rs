@@ -19,6 +19,8 @@ pub mod minmax;
 pub use self::minmax::{min_max_anytime, MinMax};
 pub mod alphabeta;
 pub use self::alphabeta::{alpha_beta_anytime, AlphaBeta};
+pub mod newalgo;
+pub use self::newalgo::{new_algo_anytime, NewAlgo};
 pub mod iterative;
 pub use self::iterative::IterativeDeepening;
 pub use self::iterative::IterativeStrategy;

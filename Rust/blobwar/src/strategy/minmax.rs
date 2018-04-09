@@ -14,7 +14,7 @@ impl Strategy for MinMax {
        let mut max = compute_best_move(self.0, &state.skip_play(),state.current_player);
        for mov in state.movements(){
            val = compute_best_move(self.0, &state.play(&mov), state.current_player);
-           if val > max{
+           if val >= max{
                max = val;
                m = Some(mov);
            }
@@ -31,18 +31,17 @@ impl fmt::Display for MinMax {
 }
 
 fn compute_best_move(depth: u8, state: &Configuration, player: bool) -> i8 {
-    let mut a:i8;
-    let mut b:i8;
-   if(state.current_player){
+   let mut a:i8;
+   if state.current_player {
        a=state.value();
    }
    else{
        a=-state.value();
    }
-   if (player) {
+   if player {
        a = a*-1;
    }
-   if (depth as u8) == 0{
+   if depth as u8 == 0{
        a
    }
    else{
@@ -55,7 +54,7 @@ fn compute_best_move(depth: u8, state: &Configuration, player: bool) -> i8 {
            flag=true;
            new_state = state.play(&mov);
            other_move=compute_best_move(depth-1, &new_state, player);
-           if(!state.current_player ^ player){
+           if !state.current_player ^ player {
                if best_move < other_move{ 
                    best_move=other_move;
                }
@@ -66,8 +65,13 @@ fn compute_best_move(depth: u8, state: &Configuration, player: bool) -> i8 {
                }
            }
        }
-       if (!flag){
-           a
+       if !flag {
+           if state.current_player^player{
+               127
+           }
+           else{
+               -127
+           }
        }
        else{
            best_move
