@@ -12,6 +12,7 @@ extern crate itertools;
 extern crate libc;
 extern crate nix;
 extern crate term;
+extern crate rand;
 
 pub(crate) mod positions;
 pub(crate) mod shmem;

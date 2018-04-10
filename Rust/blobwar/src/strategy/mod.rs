@@ -21,6 +21,8 @@ pub mod alphabeta;
 pub use self::alphabeta::{alpha_beta_anytime, AlphaBeta};
 pub mod newalgo;
 pub use self::newalgo::{new_algo_anytime, NewAlgo};
+pub mod minmaxproba;
+pub use self::minmaxproba::{min_max_proba_anytime, MinMaxProba};
 pub mod iterative;
 pub use self::iterative::IterativeDeepening;
 pub use self::iterative::IterativeStrategy;

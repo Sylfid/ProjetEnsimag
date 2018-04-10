@@ -46,23 +46,23 @@ impl Strategy for AlphaBeta {
 fn compute_best_move(depth: u8, state: &Configuration, 
                      player: bool, alpha: i8, beta: i8) -> i8 {
     let mut a:i8;
-   if state.current_player {
+    if state.current_player {
        a=state.value();
-   }
-   else{
+    }
+    else{
        a=-state.value();
-   }
-   if player {
+    }
+    if player {
        a = -a;
-   }
-   if (depth as u8) == 0{
+    }
+    if (depth as u8) == 0{
        return a
        //return state.value()
-   }
-   let mut alpha2 = alpha;
-   let mut beta2 = beta;
-   let mut new_state;
-   if (state.current_player) ^ player {
+    }
+    let mut alpha2 = alpha;
+    let mut beta2 = beta;
+    let mut new_state;
+    if (state.current_player) ^ player {
        let mut v:i8=-100;
        for mov in state.movements(){
            new_state = state.play(&mov);
@@ -74,8 +74,8 @@ fn compute_best_move(depth: u8, state: &Configuration,
            alpha2=max(alpha2,v);
        }
        v
-   }
-   else{
+    }
+    else{
        let mut v:i8=100;
        for mov in state.movements(){
            new_state = state.play(&mov);
@@ -87,7 +87,7 @@ fn compute_best_move(depth: u8, state: &Configuration,
            beta2=min(alpha2,v);
        }
        v
-   }
+    }
    
 }
 

@@ -29,11 +29,15 @@ impl Strategy for NewAlgo{
        let mut m = None;
        let mut val:i8;
        let mut max = compute_best_move(self.0,1, &state.skip_play(),state.current_player);
+       let mut new_state;
        for mov in state.movements(){
-           val = compute_best_move(self.0,1, &state.play(&mov), state.current_player);
-           if val >= max{
-               max = val;
-               m = Some(mov);
+           new_state=state.play(&mov);
+           if abs(state.value()+new_state.value())>0{
+               val = compute_best_move(self.0,1, &new_state, state.current_player);
+               if val >= max{
+                   max = val;
+                   m = Some(mov);
+               }
            }
        }
        m
@@ -63,7 +67,7 @@ fn compute_best_move(depth: u8, actualdepth: u8, state: &Configuration, player: 
         flag=true;
         new_state = state.play(&mov);
         let mut a=0;
-        if abs(state.value()-new_state.value())>1 && actualdepth < 2{
+        if abs(state.value()+new_state.value())>2 && actualdepth < 3{
             a=1;
         }
         other_move=compute_best_move(depth-1+a,actualdepth+1, &new_state,player);
