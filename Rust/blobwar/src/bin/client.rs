@@ -2,7 +2,7 @@ extern crate serde;
 extern crate serde_json;
 
 extern crate blobwar;
-use blobwar::strategy::{IterativeDeepening, IterativeStrategy, Strategy};
+use blobwar::strategy::{IterativeDeepening, IterativeStrategy, Strategy,MinMax};
 use blobwar::configuration::Configuration;
 use blobwar::board::Board;
 
@@ -13,7 +13,8 @@ use std::io::Write;
 
 fn main() {
     let address = args().nth(1).expect("missing machine name or IP address");
-    let mut strategy = IterativeDeepening::new(IterativeStrategy::AlphaBeta);
+    //let mut strategy = IterativeDeepening::new(IterativeStrategy::AlphaBeta);
+    let mut strategy = MinMax(2);
     let mut sending =
         TcpStream::connect((address.as_str(), 12_345)).expect("failed connecting to server");
     sending.set_nodelay(true).expect("failed setting no delay");

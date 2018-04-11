@@ -23,6 +23,8 @@ pub mod newalgo;
 pub use self::newalgo::{new_algo_anytime, NewAlgo};
 pub mod minmaxproba;
 pub use self::minmaxproba::{min_max_proba_anytime, MinMaxProba};
+pub mod alphabetabetter;
+pub use self::alphabetabetter::{alpha_beta_better_anytime, AlphaBetaBetter};
 pub mod iterative;
 pub use self::iterative::IterativeDeepening;
 pub use self::iterative::IterativeStrategy;
