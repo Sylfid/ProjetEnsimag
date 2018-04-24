@@ -130,7 +130,21 @@ Dvector& Dvector::operator=(const Dvector &v){
     return *this;
 }
 
-double & Dvector::operator()(int i) const{
+double Dvector::operator()(int i) const{
+    try{
+        if(i<0 || i>taille-1){
+            throw std::string("Dépassement de taille pour Dvector");
+        }
+        else{
+            return composante[i];            
+        }
+    }catch(std::string const& chaine){
+        std::cerr << chaine << std::endl;
+        throw std::string("Dépassement de taille pour Dvector");
+    }
+}
+
+double & Dvector::operator()(int i){
     try{
         if(i<0 || i>taille-1){
             throw std::string("Dépassement de taille pour Dvector");
