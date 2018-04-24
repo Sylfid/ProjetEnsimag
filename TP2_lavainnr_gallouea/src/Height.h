@@ -4,7 +4,7 @@
 
 class Height{
     private:
-        Dvector* lignex;
+        Dvector** lignex;
         int tailley;
     public:
         Height();

@@ -6,20 +6,20 @@
 
 
 Height::Height(){
-   //lignex = (Dvector*) malloc(2*sizeof(Dvector));
+   lignex = (Dvector**) malloc(2*sizeof(Dvector*));
    this->tailley=2;
    int i(0);
    for(i=0;i<tailley;i++){
-       lignex[i]= (* new Dvector());
+       lignex[i]=  new Dvector();
    }
 }
 
 Height::Height(int taillex, int tailley){
-   //this->lignex = (Dvector*) malloc(tailley*sizeof(Dvector));
+   this->lignex = (Dvector**) malloc(tailley*sizeof(Dvector*));
    this->tailley=tailley;
    int i(0);
    for(i=0;i<tailley;i++){
-       this->lignex[i]= *(new Dvector(taillex));
+       this->lignex[i]= new Dvector(taillex);
    }
 }
 
@@ -27,7 +27,7 @@ Height::Height(Height const& copie){
     tailley=copie.tailley;
     int i(0);
     for(i=0;i<tailley;i++){
-        this->lignex[i] = *(new Dvector(copie.lignex[i]));
+        this->lignex[i] = new Dvector(*copie.lignex[i]);
     }
 }
 
@@ -36,7 +36,7 @@ Height::~Height(){
     int i(0);
     for(i=0;i<this->tailley;i++){
         std::cout<<i;
-        lignex[i].~Dvector();
+        delete lignex[i];
     }
     free(lignex);
 }
@@ -44,18 +44,18 @@ Height::~Height(){
 void Height::display(std::ostream& str) const{
     int i=0;
     for(i=0;i<tailley;i++){
-        this->lignex[i].display(str);
+        this->lignex[i]->display(str);
     }
 }
 
 double & Height::operator()(int i, int j){
     try{
         if(j<0 || j>this->tailley-1 || i<0 
-                || i>this->lignex[j].getTaille()-1){
+                || i>this->lignex[j]->getTaille()-1){
             throw std::string("Dépassement de taille pour Height");
         }
         else{
-            return this->lignex[i].getComposante(j);
+            return this->lignex[i]->getComposante(j);
         }
     }catch(std::string const& chaine){
         std::cerr << chaine << std::endl;
@@ -66,11 +66,11 @@ double & Height::operator()(int i, int j){
 double Height::operator()(int i, int j) const{
     try{
         if(j<0 || j>this->tailley-1 || i<0 
-                || i>this->lignex[j].getTaille()-1){
+                || i>this->lignex[j]->getTaille()-1){
             throw std::string("Dépassement de taille pour Height");
         }
         else{
-            return this->lignex[i].getComposante(j);
+            return this->lignex[i]->getComposante(j);
         }
     }catch(std::string const& chaine){
         std::cerr << chaine << std::endl;
@@ -88,7 +88,7 @@ int Height::getTaillex(int i) const{
             throw std::string("Ce vecteur n'existe pas, getTaillex dans Height.cpp");
         }
         else{
-            return this->lignex[i].getTaille();
+            return this->lignex[i]->getTaille();
         }
     }catch(std::string const& chaine){
         std::cerr << chaine << std::endl;
