@@ -110,20 +110,4 @@ Height& Height::operator=(const Height &h){
     return *this;
 }
 
-/*Height& Height::operator=(const Height &h){
-    try{
-        if(h.tailley!=tailley){
-            throw std::string("Les deux Height non pas la meme taille");
-        }
-        else{
-            for(int i=0;i<tailley;i++){
-                *lignex[i] = *(h.lignex)[i];
-            }
-            return *this;
-        }
-    }catch(std::string const& chaine){
-        std::cerr << chaine << std::endl;
-        throw std::string("Les deux Height non pas la meme taille");
-    }
-} 
-*/
+

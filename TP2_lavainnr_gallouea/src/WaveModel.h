@@ -9,11 +9,14 @@ class WaveModel{
         Dvector* alignment;
         double intensite;
         double waveLength;
+        double param;
     public:
         WaveModel();
-        WaveModel(Height* wave, Dvector* wind, Dvector* alignment, double intensite,
-                double waveLenght) ;
-        ~WaveModel()=0;
+        WaveModel(Height& wave, Dvector& wind, Dvector& alignment, 
+                double intensite, double waveLenght, double param) ;
+        WaveModel(WaveModel const& copie);
+        ~WaveModel();
+        WaveModel& operator=(const WaveModel &w);
         void display(std::ostream& str) const;
 
-}
+};
