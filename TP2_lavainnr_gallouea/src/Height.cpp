@@ -96,7 +96,16 @@ int Height::getTaillex(int i) const{
     }
 }
 
-/*Height& Height::operator=(const Height &h){
+Height& Height::operator=(const Height &h){
+    int i(0);
+    for(i=h.tailley;i<tailley;i++){
+        delete lignex[i];
+    }
     tailley=h.tailley;
-    this.lignex=(Dvector**)
-}*/
+    lignex=(Dvector**) realloc(lignex, tailley*
+                                    sizeof(Dvector*));
+    for(i=0;i<tailley;i++){
+        lignex[i] = h.lignex[i];
+    }
+    return *this;
+}

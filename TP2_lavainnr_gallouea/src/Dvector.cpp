@@ -8,8 +8,10 @@
 
 Dvector::Dvector(){
     std::cout << "Constructeur sans argument\n";
-    composante = new double[2];
+    composante = (double*) malloc(2*sizeof(double));
     taille=2;
+    composante[0]=0.0;
+    composante[1]=0.0;
 }
 
 Dvector::Dvector(int taille2){
@@ -20,7 +22,7 @@ Dvector::Dvector(int taille2){
         composante=NULL;
     }
     else{
-        composante = new double[taille];
+        composante = (double*) malloc(taille*sizeof(double));
         int i(0);
         for(i=0;i<taille;i++){
             composante[i]=0;

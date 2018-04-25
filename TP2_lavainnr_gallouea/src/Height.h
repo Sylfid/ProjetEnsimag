@@ -16,6 +16,7 @@ class Height{
         double & operator()(int i, int j);
         int getTailley() const;
         int getTaillex(int i) const;
+        Height& operator=(const Height &h);
         //Dvector(Dvector const& copie);
         //Dvector(int taille2, double initialisation);
 };
