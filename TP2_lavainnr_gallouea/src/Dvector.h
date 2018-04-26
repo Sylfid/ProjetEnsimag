@@ -26,6 +26,7 @@ class Dvector{
         void operator-=(int i);
         void operator*=(double d);
         void operator/=(double d);
+        double operator*(const Dvector &v);
         void resize(int newTaille, double valeur);
         int getTaille();
         double & getComposante(int i);

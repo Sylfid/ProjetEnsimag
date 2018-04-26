@@ -4,7 +4,6 @@
 
 class WaveModel{
     private:
-        Height* wave;
         Dvector* wind;
         Dvector* alignment;
         double intensite;
@@ -12,11 +11,18 @@ class WaveModel{
         double param;
     public:
         WaveModel();
-        WaveModel(Height wave, Dvector wind, Dvector alignment, 
+        WaveModel(Dvector wind, Dvector alignment, 
                 double intensite, double waveLenght, double param) ;
         WaveModel(WaveModel const& copie);
         ~WaveModel();
         WaveModel& operator=(const WaveModel &w);
         void display(std::ostream& str) const;
+        virtual double operator()(int x, int y, int t) const = 0;
+        virtual double & operator()(int x, int y, int t) = 0;
+        double getItensite() const;
+        double getWaveLength() const;
+        double getParam() const;
+        Dvector* getWind() const;
+        Dvector* getAlignment() const;
 
 };

@@ -353,3 +353,21 @@ void Dvector::resize(int newTaille, double valeur){
     }
     taille=newTaille;
 }
+
+double Dvector::operator*(const Dvector &v){
+    double somme(0);
+    try{
+        if(v.taille!=taille){
+            throw std::string("les vecteurs n'ont pas la m taille");
+        }
+        else{
+            for(int i=0;i<taille;i++){
+                somme+=v.composante[i]*composante[i];
+            }
+            return somme;
+        }
+    }catch(std::string const& chaine){
+        std::cerr << chaine << std::endl;
+        throw std::string("les vecteurs n'ont pas la m taille");
+    }
+} 
