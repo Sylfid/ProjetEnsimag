@@ -25,6 +25,7 @@ Height::Height(int taillex, int tailley){
 
 Height::Height(Height const& copie){
     tailley=copie.tailley;
+    lignex = (Dvector**) malloc(tailley*sizeof(Dvector*));
     int i(0);
     for(i=0;i<tailley;i++){
         this->lignex[i] = new Dvector(*copie.lignex[i]);

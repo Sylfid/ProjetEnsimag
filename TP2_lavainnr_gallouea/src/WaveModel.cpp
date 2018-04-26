@@ -15,14 +15,15 @@ WaveModel::WaveModel(){
     this->param = 0;
 }
 
-WaveModel::WaveModel(Height& wave, Dvector& wind, Dvector& alignment,
+WaveModel::WaveModel(Height wave, Dvector wind, Dvector alignment,
         double intensite, double waveLenght, double param){
-    *(this->wave) = wave;
-    *(this->wind) = wind;
-    *(this->alignment) = alignment;
+    this->wave = new Height(wave);
+    this->wind = new Dvector(wind);
+    this->alignment = new Dvector(alignment);
     this->intensite = intensite;
     this->waveLength = waveLenght;
     this->param = param;
+
 }
 
 WaveModel::WaveModel(WaveModel const& copie){

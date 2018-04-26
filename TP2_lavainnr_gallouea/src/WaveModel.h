@@ -12,7 +12,7 @@ class WaveModel{
         double param;
     public:
         WaveModel();
-        WaveModel(Height& wave, Dvector& wind, Dvector& alignment, 
+        WaveModel(Height wave, Dvector wind, Dvector alignment, 
                 double intensite, double waveLenght, double param) ;
         WaveModel(WaveModel const& copie);
         ~WaveModel();
