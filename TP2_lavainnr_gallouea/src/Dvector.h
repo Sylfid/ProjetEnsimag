@@ -26,10 +26,11 @@ class Dvector{
         void operator-=(int i);
         void operator*=(double d);
         void operator/=(double d);
-        double operator*(const Dvector &v);
+        double operator*(const Dvector v) const;
         void resize(int newTaille, double valeur);
         int getTaille();
         double & getComposante(int i);
+        double abs() const;
 };
 
 Dvector operator+(const Dvector &a, const Dvector &b);

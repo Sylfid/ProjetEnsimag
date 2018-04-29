@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <cstring>
+#include <math.h>
 
 Dvector::Dvector(){
     std::cout << "Constructeur sans argument\n";
@@ -354,7 +355,7 @@ void Dvector::resize(int newTaille, double valeur){
     taille=newTaille;
 }
 
-double Dvector::operator*(const Dvector &v){
+double Dvector::operator*(const Dvector v) const{
     double somme(0);
     try{
         if(v.taille!=taille){
@@ -371,3 +372,12 @@ double Dvector::operator*(const Dvector &v){
         throw std::string("les vecteurs n'ont pas la m taille");
     }
 } 
+
+double Dvector::abs() const{
+    double somme(0);
+    for(int i=0;i<taille;i++){
+        somme+=composante[i]*composante[i];
+    }
+    somme = pow(somme,(1/2));
+    return somme;
+}
