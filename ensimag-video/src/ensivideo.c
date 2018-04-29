@@ -28,10 +28,14 @@ int main(int argc, char *argv[]) {
     pthread_create(&tid1, NULL, theoraStreamReader, argv[1]);
     pthread_create(&tid2, NULL, vorbisStreamReader, argv[1]);
     // wait audio thread
-
+    if (pthread_join(tid2, NULL)) {
+        perror("pthread_join");
+        return EXIT_FAILURE;
+    }
     // 1 seconde de garde pour le son,
     sleep(1);
-
+    pthread_cancel(tid1);
+    pthread_join(tid1,NULL);
     // tuer les deux threads videos si ils sont bloqués
 
     // attendre les 2 threads videos
