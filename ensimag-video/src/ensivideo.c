@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <SDL2/SDL.h>
+#include <pthread.h>
 
 #include "stream_common.h"
 #include "oggstream.h"
@@ -23,18 +24,9 @@ int main(int argc, char *argv[]) {
     assert(res == 0);
     
     // start the two stream readers
-    pid_t pid;
-    switch(pid=fork()){
-        case -1:
-            assert(0);
-            break;
-        case 0:
-            vorbisStreamReader(argv[1]);
-        default:
-            theoraStreamReader(argv[1]);
-
-    }
-    
+    pthread_t tid1, tid2;
+    pthread_create(&tid1, NULL, theoraStreamReader, argv[1]);
+    pthread_create(&tid2, NULL, vorbisStreamReader, argv[1]);
     // wait audio thread
 
     // 1 seconde de garde pour le son,

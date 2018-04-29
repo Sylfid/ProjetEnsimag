@@ -5,6 +5,7 @@
 #include "stream_common.h"
 #include "synchro.h"
 #include <unistd.h>
+#include <pthread.h>
 
 bool fini = false;
 
@@ -141,19 +142,9 @@ int decodeAllHeaders(int respac, struct streamstate *s, enum streamtype type) {
 
 	    if (type == TYPE_THEORA) {
 		// lancement du thread gérant l'affichage (draw2SDL)
-	        // inserer votre code ici !!
-        pid_t pid;
-        switch(pid=fork()){
-            case -1:
-                assert(0);
-                break;
-            case 0:
-                draw2SDL(&s->serial);
-                break;
-            default:
-                break;
+	        pthread_t tid;
+            pthread_create(&tid, NULL, draw2SDL, &(s->serial));
 
-        }
 		assert(res == 0);		     
 	    }
 	}
