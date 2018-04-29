@@ -148,6 +148,7 @@ int decodeAllHeaders(int respac, struct streamstate *s, enum streamtype type) {
                 assert(0);
                 break;
             case 0:
+                draw2SDL(&s->serial);
                 break;
             default:
                 break;

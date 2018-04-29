@@ -29,9 +29,9 @@ int main(int argc, char *argv[]) {
             assert(0);
             break;
         case 0:
-            theoraStreamReader(argv[1]);
-        default:
             vorbisStreamReader(argv[1]);
+        default:
+            theoraStreamReader(argv[1]);
 
     }
     
