@@ -4,6 +4,7 @@
 #include "ensitheora.h"
 #include "stream_common.h"
 #include "synchro.h"
+#include <unistd.h>
 
 bool fini = false;
 
@@ -141,7 +142,17 @@ int decodeAllHeaders(int respac, struct streamstate *s, enum streamtype type) {
 	    if (type == TYPE_THEORA) {
 		// lancement du thread gérant l'affichage (draw2SDL)
 	        // inserer votre code ici !!
+        pid_t pid;
+        switch(pid=fork()){
+            case -1:
+                assert(0);
+                break;
+            case 0:
+                break;
+            default:
+                break;
 
+        }
 		assert(res == 0);		     
 	    }
 	}
