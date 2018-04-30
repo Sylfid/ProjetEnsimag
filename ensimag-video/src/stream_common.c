@@ -8,7 +8,8 @@
 #include <pthread.h>
 
 bool fini = false;
-
+pthread_t theora2sdlthread;
+pthread_mutex_t mutexHashMap;
 
 struct timespec datedebut;
 
@@ -67,19 +68,23 @@ struct streamstate *getStreamState(ogg_sync_state *pstate, ogg_page *ppage,
 	assert(res == 0);
 
 	// proteger l'accès à la hashmap
+    pthread_mutex_lock(&mutexHashMap);
 
 	if (type == TYPE_THEORA)
 	    HASH_ADD_INT( theorastrstate, serial, s );
 	else
 	    HASH_ADD_INT( vorbisstrstate, serial, s );
+    pthread_mutex_unlock(&mutexHashMap);
 
     } else {
 	// proteger l'accès à la hashmap
 
+    pthread_mutex_lock(&mutexHashMap);
 	if (type == TYPE_THEORA)
 	    HASH_FIND_INT( theorastrstate, & serial, s );
 	else	
 	    HASH_FIND_INT( vorbisstrstate, & serial, s );    
+    pthread_mutex_unlock(&mutexHashMap);
 
 	assert(s != NULL);
     }
@@ -142,8 +147,8 @@ int decodeAllHeaders(int respac, struct streamstate *s, enum streamtype type) {
 
 	    if (type == TYPE_THEORA) {
 		// lancement du thread gérant l'affichage (draw2SDL)
-	        pthread_t tid;
-            pthread_create(&tid, NULL, draw2SDL, &(s->serial));
+            pthread_create(&theora2sdlthread, NULL, 
+                    draw2SDL, &(s->serial));
 
 		assert(res == 0);		     
 	    }

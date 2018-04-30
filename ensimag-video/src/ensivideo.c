@@ -7,6 +7,7 @@
 #include "stream_common.h"
 #include "oggstream.h"
 
+pthread_t theora2sdlthread;
 
 int main(int argc, char *argv[]) {
     int res;
@@ -35,7 +36,9 @@ int main(int argc, char *argv[]) {
     // 1 seconde de garde pour le son,
     sleep(1);
     pthread_cancel(tid1);
+    pthread_cancel(theora2sdlthread);
     pthread_join(tid1,NULL);
+    pthread_join(theora2sdlthread,NULL);
     // tuer les deux threads videos si ils sont bloqués
 
     // attendre les 2 threads videos

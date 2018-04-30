@@ -4,6 +4,7 @@
 #include "ensitheora.h"
 #include "synchro.h"
 #include "stream_common.h"
+#include "pthread.h"
 
 int windowsx = 0;
 int windowsy = 0;
@@ -11,6 +12,7 @@ int windowsy = 0;
 int tex_iaff= 0;
 int tex_iwri= 0;
 
+pthread_mutex_t mutexHashMap;
 
 static SDL_Window *screen = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -61,8 +63,9 @@ void *draw2SDL(void *arg) {
     signalerFenetreEtTexturePrete();
 
     /* Protéger l'accès à la hashmap */
-
+    pthread_mutex_lock(&mutexHashMap);
     HASH_FIND_INT( theorastrstate, &serial, s );
+    pthread_mutex_unlock(&mutexHashMap);
 
 
 
