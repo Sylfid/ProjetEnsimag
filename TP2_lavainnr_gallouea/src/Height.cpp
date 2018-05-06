@@ -36,7 +36,6 @@ Height::~Height(){
     std::cout << "Destructeur Height\n";
     int i(0);
     for(i=0;i<this->tailley;i++){
-        std::cout<<i;
         delete lignex[i];
     }
     free(lignex);
