@@ -1,5 +1,6 @@
 #include <string>
-
+#ifndef DVECTOR_H
+#define DVECTOR_H
 
 class Dvector{
     private:
@@ -43,3 +44,5 @@ Dvector operator-(const Dvector &a);
 bool operator==(const Dvector &a, const Dvector &b);
 std::ostream& operator<<(std::ostream &str, const Dvector v);
 std::istream& operator>>(std::istream &str, Dvector &v);
+
+#endif

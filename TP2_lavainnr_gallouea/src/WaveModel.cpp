@@ -33,7 +33,7 @@ WaveModel::WaveModel(WaveModel const& copie){
 } 
 
 WaveModel::~WaveModel(){
-    std::cout<<"Destructeur WaveModel";
+    //std::cout<<"Destructeur WaveModel";
     delete wind;
     delete alignment;
 }

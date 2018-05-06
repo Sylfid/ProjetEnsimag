@@ -1,3 +1,6 @@
+#ifndef GERSTNERWAVEMODEL_H
+#define GERSTNERWAVEMODEL_H
+
 #include "GerstnerWave.h"
 #include <vector>
 
@@ -14,3 +17,5 @@ class GerstnerWaveModel : public WaveModel{
                 double intensite, double waveLenght, double param, int nx, int ny);
         ~GerstnerWaveModel();
 };
+
+#endif

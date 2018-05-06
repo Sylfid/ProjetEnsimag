@@ -33,7 +33,7 @@ Height::Height(Height const& copie){
 }
 
 Height::~Height(){
-    std::cout << "Destructeur Height\n";
+    //std::cout << "Destructeur Height\n";
     int i(0);
     for(i=0;i<this->tailley;i++){
         std::cout<<i;

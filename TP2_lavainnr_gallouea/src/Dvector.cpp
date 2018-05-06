@@ -8,7 +8,7 @@
 #include <math.h>
 
 Dvector::Dvector(){
-    std::cout << "Constructeur sans argument\n";
+    //std::cout << "Constructeur sans argument\n";
     composante = (double*) malloc(2*sizeof(double));
     taille=2;
     composante[0]=0.0;
@@ -16,7 +16,7 @@ Dvector::Dvector(){
 }
 
 Dvector::Dvector(int taille2){
-    std::cout << "Constructeur avec un int en argument\n";
+    //std::cout << "Constructeur avec un int en argument\n";
     taille=taille2;
     if(!(taille>-1)) return ;
     if(taille==0){
@@ -32,7 +32,7 @@ Dvector::Dvector(int taille2){
 }
 
 Dvector::Dvector(int taille2, double initialisation){
-    std::cout << "Constructeur avec un int et un double en argument\n";
+    //std::cout << "Constructeur avec un int et un double en argument\n";
     taille=taille2;
     if(!(taille>0)) return ;
     composante = (double*) malloc(taille*sizeof(double));
@@ -43,7 +43,7 @@ Dvector::Dvector(int taille2, double initialisation){
 }
 
 Dvector::Dvector(Dvector const& copie){
-    std::cout << "Constructeur par copie";
+    //std::cout << "Constructeur par copie";
     taille=copie.taille;
     composante = new double[taille];
     int i(0);
@@ -53,7 +53,7 @@ Dvector::Dvector(Dvector const& copie){
 }
 
 Dvector::Dvector(std::string file){
-    std::cout << "Constructeur avec fichier\n";
+    //std::cout << "Constructeur avec fichier\n";
     std::ifstream fluxVector(file.c_str());
     if(fluxVector){
         char a;
@@ -91,7 +91,7 @@ Dvector::Dvector(std::string file){
 }
 
 Dvector::~Dvector(){
-    std::cout << "Destructeur Dvector\n";
+    //std::cout << "Destructeur Dvector\n";
     free(composante);
 }
 

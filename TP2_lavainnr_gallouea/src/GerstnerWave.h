@@ -1,3 +1,6 @@
+#ifndef GERSTNERWAVE_H
+#define GERSTNERWAVE_H
+
 #include "WaveModel.h"
 
 
@@ -21,3 +24,4 @@ class GerstnerWave{
 
 };
 
+#endif

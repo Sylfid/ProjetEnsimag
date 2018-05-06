@@ -1,3 +1,7 @@
+#ifndef HEIGHT_H
+#define HEIGHT_H
+
+
 #include <string>
 #include "Dvector.h"
 
@@ -21,3 +25,4 @@ class Height{
         //Dvector(int taille2, double initialisation);
 };
 
+#endif

@@ -1,3 +1,6 @@
+#ifndef WAVEMODEL_H
+#define WAVEMODEL_H
+
 #include <string>
 #include "Height.h"
 
@@ -25,3 +28,5 @@ class WaveModel{
         Dvector* getAlignment() const;
 
 };
+
+#endif

@@ -4,5 +4,5 @@ project(Demo)
 
 set(CMAKE_CXX_FLAGS "-g -Wall")
 
-add_executable(exe src/Test.cpp src/Dvector.cpp src/Height.cpp src/WaveModel.cpp src/GerstnerWave.cpp src/GerstnerWaveModel.cpp)
+add_executable(exe src/Ocean.cpp  src/Test.cpp src/Dvector.cpp src/Height.cpp src/WaveModel.cpp src/GerstnerWave.cpp src/GerstnerWaveModel.cpp)
 
