@@ -25,6 +25,4 @@ double GerstnerWaveModel::operator()(int x, int y, int t) const{
     return (*gerstnerWave[x + y * nx])(t)(2);
 }
 
-GerstnerWaveModel::~GerstnerWaveModel(){
-}
 

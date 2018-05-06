@@ -9,7 +9,6 @@ class GerstnerWaveModel : public WaveModel{
         std::vector<GerstnerWave*> gerstnerWave;
         int nx;
         int ny;
-
     public:
         double operator()(int x, int y, int t) const;
         GerstnerWaveModel();
