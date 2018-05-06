@@ -1,9 +1,16 @@
 #include "GerstnerWave.h"
+#include <vector>
 
 class GerstnerWaveModel : public WaveModel{
     private:
-        GerstnerWave* gerstnerWave;
+        std::vector<GerstnerWave*> gerstnerWave;
+        int nx;
+        int ny;
 
     public:
+        double operator()(int x, int y, int t) const;
         GerstnerWaveModel();
+        GerstnerWaveModel(Dvector wind, Dvector alignment, 
+                double intensite, double waveLenght, double param, int nx, int ny);
+        ~GerstnerWaveModel();
 };

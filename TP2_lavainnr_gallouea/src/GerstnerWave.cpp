@@ -31,8 +31,8 @@ GerstnerWave::GerstnerWave(GerstnerWave const& copie):
 }
 
 GerstnerWave::~GerstnerWave(){
-    direction.~Dvector();
-    positionInit.~Dvector();
+    //direction.~Dvector();
+    //positionInit.~Dvector();
 }
 
 GerstnerWave& GerstnerWave::operator=(const GerstnerWave &copie){

@@ -1,5 +1,6 @@
 #include "WaveModel.h"
 
+
 class GerstnerWave{
     private:
         double phase;

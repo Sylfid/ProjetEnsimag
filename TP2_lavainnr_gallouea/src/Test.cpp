@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
-#include "WaveModel.h"
+#include "GerstnerWaveModel.h"
 
 using namespace std;
 
@@ -20,7 +20,9 @@ int main(){
     cout << "\n\n salut \n\n";
     test2.display(cout);*/
     Height test(4,4);
-    Dvector vent(2,2);
-    Dvector alignement(2,2);
+    Dvector vent(2,1);
+    Dvector alignement(2,0.5);
+    GerstnerWaveModel model(vent, alignement, 5, 10, 0, 2, 2);
+    cout << model(1, 0, 5) << endl;
     return 0;
 }
