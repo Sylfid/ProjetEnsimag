@@ -5,69 +5,27 @@
 #include <cstdlib>
 
 GerstnerWaveModel::GerstnerWaveModel() : WaveModel(){
-    gerstnerWave=NULL;
-    taille=0;
+    std::vector<GerstnerWave*> gerstnerWave;
 }
 
-GerstnerWaveModel::GerstnerWaveModel(Dvector wind, Dvector 
-        alignment, double intensite, double waveLength, double 
-        param, double phase, double amplitude, double frequence,
-        int taille):
-    WaveModel(wind,alignment,intensite,waveLength,param){
-        gerstnerWave = (GerstnerWave**)malloc(taille*
-                taille*sizeof(GerstnerWave*));
-        this->taille=taille*taille;
-        for(int i=0;i<taille;i++){
-            for(int j=0;j<taille;j++){
-                gerstnerWave[i*taille+j]= new 
-                    GerstnerWave(phase,amplitude,wind,
-                    frequence,(double)i,(double)j);
-            }
+GerstnerWaveModel::GerstnerWaveModel(Dvector wind, Dvector alignment, 
+                double intensite, double waveLen, double param, int nbx, int nby)
+                : WaveModel(wind, alignment, intensite, waveLen, param){
+    nx = nbx;
+    ny = nby;
+    gerstnerWave.resize(nx * ny);
+    std::cout << gerstnerWave.size() << std::endl;
+    for(int j(0); j < ny; j ++){
+        for(int i(0); i < nx; i ++){
+            gerstnerWave[i + j*nx] = new GerstnerWave(0, 5, wind, 0.5, i, j);    
         }
     }
-    
-
-GerstnerWaveModel::GerstnerWaveModel(GerstnerWaveModel const& copie):
-    WaveModel(copie){
-        taille=copie.taille;
-        gerstnerWave=(GerstnerWave**)malloc(copie.taille
-                * sizeof(GerstnerWave*));
-       for(int i=0; i<taille; i++){
-          gerstnerWave[i] = new GerstnerWave(*copie.gerstnerWave[i]);
-       }
-    }
-
-GerstnerWaveModel::~GerstnerWaveModel(){
-    std::cout << "Destructeur GerstnerWaveModel\n";
-    for(int i=0;i<taille;i++){
-        delete gerstnerWave[i];
-    }
-    free(gerstnerWave);
-}
-
-GerstnerWaveModel& GerstnerWaveModel::operator=(GerstnerWaveModel 
-        const& copie){
-    for(int i=0;i<taille;i++){
-        delete gerstnerWave[i];
-    }
-    taille=copie.taille;
-    free(gerstnerWave);
-    gerstnerWave = (GerstnerWave**)malloc(taille*sizeof(GerstnerWave*));
-    for(int i=0;i<taille;i++){
-        gerstnerWave[i] = new GerstnerWave(*copie.gerstnerWave[i]);
-    }
-    return *this;
+    std::cout << gerstnerWave.size() << std::endl;
 }
 
 double GerstnerWaveModel::operator()(int x, int y, int t) const{
-    Dvector position;
-    double hauteur(0);
-    for(int i=0; i<taille; i++){
-        position=(*gerstnerWave[i])((double) t);
-        if((int) position(0)== x && (int) position(1)==y){
-            hauteur+=position(2);
-        }
-        position.~Dvector();
-    }
-    return hauteur;
+    std::cout << gerstnerWave.size() << std::endl;
+    return (*gerstnerWave[x + y * nx])(t)(2);
 }
+
+
