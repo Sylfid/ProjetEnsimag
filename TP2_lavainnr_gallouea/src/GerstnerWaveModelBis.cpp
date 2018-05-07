@@ -59,14 +59,16 @@ GerstnerWaveModel& GerstnerWaveModel::operator=(GerstnerWaveModel
 }
 
 double GerstnerWaveModel::operator()(int x, int y, int t) const{
-    Dvector position;
+    //Dvector position;
     double hauteur(0);
     for(int i=0; i<taille; i++){
-        position=(*gerstnerWave[i])((double) t);
-        if((int) position(0)== x && (int) position(1)==y){
-            hauteur+=position(2);
+        //position=(*gerstnerWave[i])((double) t);
+        if((*gerstnerWave[i])((double) t).eqApprox(x,y)){
+        //if((int) position(0)== x && (int) position(1)==y){
+            //hauteur+=position(2);
+            hauteur+=(*gerstnerWave[i])((double) t)(2);
         }
-        position.~Dvector();
+        //position.~Dvector();
     }
     return hauteur;
 }

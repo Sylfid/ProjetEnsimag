@@ -32,6 +32,7 @@ class Dvector{
         int getTaille();
         double & getComposante(int i);
         double abs() const;
+        bool eqApprox(int x, int y) const;
 };
 
 Dvector operator+(const Dvector &a, const Dvector &b);

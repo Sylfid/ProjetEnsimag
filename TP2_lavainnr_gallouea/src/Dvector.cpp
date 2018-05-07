@@ -381,3 +381,7 @@ double Dvector::abs() const{
     somme = pow(somme,(1/2));
     return somme;
 }
+
+bool Dvector::eqApprox(int x, int y) const{
+    return (int) composante[0]== x && (int) composante[1] == y;
+}
