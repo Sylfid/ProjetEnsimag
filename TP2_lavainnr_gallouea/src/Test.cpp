@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include "Ocean.h"
+#include "GerstnerWaveModel.h"
 
 using namespace std;
 
@@ -18,13 +19,11 @@ int main(){
     Height test2(test);
     cout<<"yoyoyyo";
     cout << "\n\n salut \n\n";
-    test2.display(cout);
-    Height test(4,4);
+    test2.display(cout);*/
     Dvector vent(2,1);
     Dvector alignement(2,0.5);
-    GerstnerWaveModel model(vent, alignement, 5, 10, 0, 2, 2);
-    cout << model(1, 0, 5) << endl;*/
-    Ocean ocean(640, 480, 30, 30);
+    GerstnerWaveModel model(vent, alignement, 5, 10, 0, 30, 30);
+    Ocean ocean(640, 480, 30, 30, &model);
     ocean.increaseTime();
     ocean.computeHeight();
     ocean.display();

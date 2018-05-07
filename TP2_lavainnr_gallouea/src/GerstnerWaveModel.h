@@ -12,9 +12,11 @@ class GerstnerWaveModel : public WaveModel{
     public:
         double operator()(int x, int y, int t) const;
         GerstnerWaveModel();
+        GerstnerWaveModel(GerstnerWaveModel const& copie);
         GerstnerWaveModel(Dvector wind, Dvector alignment, 
                 double intensite, double waveLenght, double param, int nx, int ny);
         ~GerstnerWaveModel();
+        GerstnerWaveModel& operator=(GerstnerWaveModel const& copie);
 };
 
 #endif

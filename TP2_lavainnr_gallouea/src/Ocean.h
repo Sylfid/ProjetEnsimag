@@ -14,7 +14,7 @@ class Ocean{
         Height* h;
         WaveModel* model;
     public:
-        Ocean(double lenx, double leny, int numx, int numy);
+        Ocean(double lenx, double leny, int numx, int numy, WaveModel* mod);
         void computeHeight();
         void increaseTime();
         ~Ocean();

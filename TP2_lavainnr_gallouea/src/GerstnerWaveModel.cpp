@@ -8,6 +8,12 @@ GerstnerWaveModel::GerstnerWaveModel() : WaveModel(){
     std::vector<GerstnerWave*> gerstnerWave;
 }
 
+GerstnerWaveModel::GerstnerWaveModel(GerstnerWaveModel const& copie):WaveModel(copie){
+    nx = copie.nx;
+    ny = copie.ny;
+    gerstnerWave = copie.gerstnerWave;
+}
+
 GerstnerWaveModel::GerstnerWaveModel(Dvector wind, Dvector alignment, 
                 double intensite, double waveLen, double param, int nbx, int nby)
                 : WaveModel(wind, alignment, intensite, waveLen, param){
@@ -25,4 +31,12 @@ double GerstnerWaveModel::operator()(int x, int y, int t) const{
     return (*gerstnerWave[x + y * nx])(t)(2);
 }
 
+GerstnerWaveModel::~GerstnerWaveModel(){
+}
 
+GerstnerWaveModel& GerstnerWaveModel::operator=(GerstnerWaveModel const& copie){
+    nx = copie.nx;
+    ny = copie.ny;
+    gerstnerWave = copie.gerstnerWave;
+    return *this;
+}
