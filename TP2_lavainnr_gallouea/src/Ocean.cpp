@@ -1,6 +1,7 @@
 #include "Ocean.h"
 #include <iostream>
 #include <string>
+#include <math.h>
 
 Ocean::Ocean(double lenx, double leny, int numx, int numy, WaveModel* mod){
     nx = numx;
@@ -32,3 +33,25 @@ void Ocean::computeHeight(){
 void Ocean::display(){
     (*h).display(std::cout);
 }
+
+Ocean::Ocean(Ocean const& copie){
+    nx=copie.nx;
+    ny=copie.ny;
+    lx=copie.lx;
+    ly=copie.ly;
+    t=copie.t;
+    h= new Height(*copie.h);
+    *model = *copie.model;
+}
+
+Ocean& Ocean::operator=(Ocean const& copie){
+    nx=copie.nx;
+    ny=copie.ny;
+    lx=copie.lx;
+    ly=copie.ly;
+    t=copie.t;
+    *h=*copie.h;
+    *model = *copie.model;
+    return *this;
+}
+
