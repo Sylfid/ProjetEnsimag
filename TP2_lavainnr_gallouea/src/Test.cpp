@@ -1,3 +1,4 @@
+#include "fft.cpp"
 #include <assert.h>
 #include <iostream>
 #include <sstream>
@@ -19,7 +20,7 @@ int main(){
     Height test2(test);
     cout<<"yoyoyyo";
     cout << "\n\n salut \n\n";
-    test2.display(cout);*/
+    test2.display(cout);
     Dvector vent(2,1);
     Dvector alignement(2,0.5);
     GerstnerWaveModel model(vent, alignement, 5, 10, 0, 30, 30);
@@ -28,4 +29,15 @@ int main(){
     ocean.computeHeight();
     ocean.display();
     return 0;
+    */
+    vector<comp> x;
+    x.resize(8);
+    for (int k(0); k < 8; k++){
+        x[k] = comp(k* 0.1, 0);
+        cout << x[k] << endl;
+    }
+    fft(x);
+    for (int k(0); k < 8; k++){
+        cout << x[k] << endl;
+    }
 }
